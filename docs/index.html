@@ -30,10 +30,6 @@
 </head>
 
 <body>
-  <form id="buttonFirst">
-    <input type="button" name="BUTTON1" value="" style="background-color: red;" onclick="toggleBoom('Button 1');" onmouseover="handleButtonHover(this);" onmouseout="handleButtonLeave(this);">
-  </form>
-
   <script>
 
 	var fortunes = [
@@ -58,13 +54,15 @@
 		button.style.opacity = "1";
 	}
 
-    function toggleBoom(message) {
+    function toggleBoom(message, button) {
       var textbox = document.getElementById("textboxName");
       if (textbox.value === message) {
         textbox.value = ""; // Empty the textbox
       } else {
         textbox.value = message; // Show "BOOM" in the textbox
       }
+      var current_button = document.getElementById(button);
+      current_button.title = message;
     }
 
 	function getRandomNumber(max_value) {
@@ -77,43 +75,43 @@
 		return randomNumber;
 	  }
 
-	function getRandomFortune() {
+	function getRandomFortune(button) {
 		var randomIndex = Math.floor(Math.random() * fortunes.length);
 		var randomFortune = fortunes[randomIndex];
-		toggleBoom(randomFortune);
+		toggleBoom(randomFortune, button);
 	  }
 
     // Define an array of colors
     var colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 
     // Generate 2048 buttons with repeating colors
-    var buttonFirst = document.getElementById("buttonFirst");
-    for (var i = 2; i <= 2048; i++) {
-      var button = document.createElement("input");
-      button.type = "button";
-      button.name = "BUTTON" + i;
-      button.value = "";
-      //button.style.backgroundColor = colors[(i - 1) % colors.length]; // Apply the color from the array
-      button.style.backgroundColor = colors[getRandomNumber(colors.length)]; // Apply the color from the array
-	  button.onclick = getRandomFortune;
-	  button.addEventListener("mouseover", function() {
-        this.style.opacity = "0.2"; // Change opacity when mouse is over the button
-      });
-      button.addEventListener("mouseout", function() {
-        this.style.opacity = "1"; // Reset opacity when mouse leaves the button
-      });
-      buttonFirst.appendChild(button);
-	  
-	  if (i == 413) {
-		var text_box = document.createElement("input");
+    var text_box = document.createElement("input");
 		text_box.type = "text";
 		text_box.name = "textboxName";
 		text_box.id = "textboxName";
 		text_box.style = "color: blue; background-color: white; border: none; font-size: 24px;";
 		text_box.size = 100; // Set the width of the text box to display 40 characters
 		text_box.style.height = "100px"; // Set the height of the text box to 40 pixels
-		buttonFirst.appendChild(text_box);
-	  }
+		document.body.appendChild(text_box);
+    for (var i = 1; i <= 2048; i++) {
+      var button = document.createElement("input");
+      button.type = "button";
+      button.name = "BUTTON" + i;
+      button.id = "BUTTON" + i;
+      button.value = "";
+      button.title = "Click this button to reveal your fortune";
+      //button.style.backgroundColor = colors[(i - 1) % colors.length]; // Apply the color from the array
+      button.style.backgroundColor = colors[getRandomNumber(colors.length)]; // Apply the color from the array
+      button.onclick = function() {
+        getRandomFortune(this.id);
+      };
+      button.addEventListener("mouseover", function() {
+        this.style.opacity = "0.2"; // Change opacity when mouse is over the button
+      });
+      button.addEventListener("mouseout", function() {
+        this.style.opacity = "1"; // Reset opacity when mouse leaves the button
+      });
+      document.body.appendChild(button);
     }
   </script>
 </body>
