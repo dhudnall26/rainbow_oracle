@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>rainbow oracle</title>
+  <style>
+    body {
+      color: rgb(0, 145, 255);
+      font-size: 20px;
+      background-color: beige;
+    }
+
+    /* Style for the buttons */
+    input[name^="BUTTON"] {
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-block; /* Make the buttons inline */
+      margin: 5px; /* Add some margin between buttons for spacing */
+	  background-color: transparent; /* Make the background transparent by default */
+      transition: background-color 0.3s; /* Add a smooth transition effect */
+    }
+
+	input[name^="BUTTON"]:hover {
+		background-color: white; /* Replace the values with desired RGBA color and opacity */
+	 }
+  </style>
+</head>
+
+<body>
+  <form id="buttonFirst">
+    <input type="button" name="BUTTON1" value="" style="background-color: red;" onclick="toggleBoom('Button 1');" onmouseover="handleButtonHover(this);" onmouseout="handleButtonLeave(this);">
+  </form>
+
+  <script>
+
+	var fortunes = [
+	"You will find happiness in unexpected places.",
+	"A big fortune will descend upon you soon.",
+	"Good news will come to you from far away.",
+	"Your hard work will pay off in the near future.",
+	"A surprise awaits you later this week.",
+	"You will make new friends in the coming days.",
+	"An exciting opportunity will come your way.",
+	"Your kindness will be rewarded with good karma.",
+	"New beginnings are on the horizon for you.",
+	"Luck is on your side today."
+	// Add more fortunes as needed...
+  ];
+
+	function handleButtonHover(button) {
+		button.style.opacity = "0.2";
+	}
+	
+	function handleButtonLeave(button) {
+		button.style.opacity = "1";
+	}
+
+    function toggleBoom(message) {
+      var textbox = document.getElementById("textboxName");
+      if (textbox.value === message) {
+        textbox.value = ""; // Empty the textbox
+      } else {
+        textbox.value = message; // Show "BOOM" in the textbox
+      }
+    }
+
+	function getRandomNumber(max_value) {
+		// Generate a random decimal number between 0 and 1
+		const randomDecimal = Math.random();
+	  
+		// Convert the random decimal number to a random integer between 1 and 6
+		const randomNumber = Math.floor(randomDecimal * max_value);
+	  
+		return randomNumber;
+	  }
+
+	function getRandomFortune() {
+		var randomIndex = Math.floor(Math.random() * fortunes.length);
+		var randomFortune = fortunes[randomIndex];
+		toggleBoom(randomFortune);
+	  }
+
+    // Define an array of colors
+    var colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+
+    // Generate 2048 buttons with repeating colors
+    var buttonFirst = document.getElementById("buttonFirst");
+    for (var i = 2; i <= 2048; i++) {
+      var button = document.createElement("input");
+      button.type = "button";
+      button.name = "BUTTON" + i;
+      button.value = "";
+      //button.style.backgroundColor = colors[(i - 1) % colors.length]; // Apply the color from the array
+      button.style.backgroundColor = colors[getRandomNumber(colors.length)]; // Apply the color from the array
+	  button.onclick = getRandomFortune;
+	  button.addEventListener("mouseover", function() {
+        this.style.opacity = "0.2"; // Change opacity when mouse is over the button
+      });
+      button.addEventListener("mouseout", function() {
+        this.style.opacity = "1"; // Reset opacity when mouse leaves the button
+      });
+      buttonFirst.appendChild(button);
+	  
+	  if (i == 413) {
+		var text_box = document.createElement("input");
+		text_box.type = "text";
+		text_box.name = "textboxName";
+		text_box.id = "textboxName";
+		text_box.style = "color: blue; background-color: white; border: none; font-size: 24px;";
+		text_box.size = 100; // Set the width of the text box to display 40 characters
+		text_box.style.height = "100px"; // Set the height of the text box to 40 pixels
+		buttonFirst.appendChild(text_box);
+	  }
+    }
+  </script>
+</body>
+
+</html>
