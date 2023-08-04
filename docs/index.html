@@ -20,12 +20,17 @@
       display: inline-block; /* Make the buttons inline */
       margin: 5px; /* Add some margin between buttons for spacing */
 	  background-color: transparent; /* Make the background transparent by default */
-      transition: background-color 0.3s; /* Add a smooth transition effect */
+      transition: background-color 0.3s, transform 0.1s; /* Add a smooth transition effect */
     }
 
 	input[name^="BUTTON"]:hover {
-		background-color: white; /* Replace the values with desired RGBA color and opacity */
-	 }
+		background-color: white; 
+		transform: translateY(100px); 
+	}
+
+    input[name^="BUTTON"]:active {
+		transform: translateY(0); 
+	}
   </style>
 </head>
 
