@@ -23,16 +23,16 @@
       transition: background-color 0.3s, transform 0.1s; /* Add a smooth transition effect */
     }
 
-	input[name^="BUTTON"]:hover {
+	/*input[name^="BUTTON"]:hover {
 		background-color: white; 
-		transform: translateY(100px); 
+		transform: translate(100px, 200px);
     transition: all 1s ease-in-out;
 	}
 
     input[name^="BUTTON"]:active {
 		transform: translateY(0); 
     transition: all 1s ease-in-out;
-	}
+	} */
   </style>
 </head>
 
@@ -88,6 +88,23 @@
 		toggleBoom(randomFortune, button);
 	  }
 
+  function shuffleArray(buttonArray) {
+    // Shuffle the button array
+    for (var i = buttonArray.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = buttonArray[i];
+      buttonArray[i] = buttonArray[j];
+      buttonArray[j] = temp;
+    }
+  }
+
+  function appendArray(buttonArray) {
+    // Append the shuffled buttons to the document
+    for (var i = 0; i < buttonArray.length; i++) {
+      document.body.appendChild(buttonArray[i]);
+    }
+  }
+
     // Define an array of colors
     var colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 
@@ -100,6 +117,10 @@
 		text_box.size = 100; // Set the width of the text box to display 40 characters
 		text_box.style.height = "100px"; // Set the height of the text box to 40 pixels
 		document.body.appendChild(text_box);
+
+
+    var buttonArray = [];
+
     for (var i = 1; i <= 2048; i++) {
       var button = document.createElement("input");
       button.type = "button";
@@ -111,6 +132,8 @@
       button.style.backgroundColor = colors[getRandomNumber(colors.length)]; // Apply the color from the array
       button.onclick = function() {
         getRandomFortune(this.id);
+        shuffleArray(buttonArray);
+        appendArray(buttonArray);
       };
       button.addEventListener("mouseover", function() {
         this.style.opacity = "0.2"; // Change opacity when mouse is over the button
@@ -118,8 +141,10 @@
       button.addEventListener("mouseout", function() {
         this.style.opacity = "1"; // Reset opacity when mouse leaves the button
       });
-      document.body.appendChild(button);
+      buttonArray.push(button);
     }
+
+    appendArray(buttonArray);
   </script>
 </body>
 
