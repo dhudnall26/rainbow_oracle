@@ -1,0 +1,80 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <style>
+        body {
+          color: rgb(0, 145, 255);
+          font-size: 20px;
+          background-color: rgb(173, 164, 165);
+		  text-align: center;
+        }
+
+		.picture-frame {
+            border: 20px solid black; /* Add a border around the frame */
+            padding: 10px; /* Add padding inside the frame */
+            display: inline-block; /* Display the frame as an inline block */
+            margin: 20px; /* Add margin for spacing */
+        }
+
+		#galleryImage {
+            max-width: 75%; /* Adjust as needed */
+            max-height: 75%; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+	<h1>Welcome to the Kitty Gang Gallery!</h1>
+	<a href="index.html">Home Page</a><br>
+	<button onclick="previousImage()"><<<</button>
+	<button onclick="nextImage()">>>></button><br>
+
+	<div class="picture-frame">
+        <img id="galleryImage" src="" alt="Kitty Gang Image">
+        <p>Caption for Image 1</p>
+    </div>
+	<script>
+		var currentIndex = 0; // Index of the currently displayed image
+		var images = ["image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg", "image7.jpg", "image8.jpg", "image9.jpg", "image10.jpg", "image11.jpg", "image12.jpg"]; // List of image filenames
+
+		function showImage(index) {
+			var imgElement = document.getElementById("galleryImage");
+			var captionElement = document.getElementById("imageCaption");
+	
+			var imgFolder = "img/"; // Change this to your actual image folder path
+
+			if (index >= 0 && index < images.length) {
+				var imageUrl = imgFolder + images[index];
+				imgElement.src = imageUrl;
+				captionElement.textContent = "Caption for Image " + (index + 1);
+				currentIndex = index;
+			}
+		}
+	
+		function previousImage() {
+			if (currentIndex > 0){
+				currentIndex -= 1;
+			} else {
+				currentIndex = (images.length - 1);
+			}
+			
+			showImage(currentIndex);
+		}
+	
+		function nextImage() {
+			if (currentIndex < (images.length - 1)){
+				currentIndex += 1;
+			} else{
+				currentIndex = 0;
+			}
+			
+			showImage(currentIndex);
+		}
+	
+		window.onload = function() {
+			showImage(0); // Show the first image when the page loads
+		};
+	</script>
+</body>
+</html>
