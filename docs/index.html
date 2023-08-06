@@ -15,6 +15,72 @@
 <body>
     <h1>Welcome to the Home Page</h1>
     <a href="buttons.html">Buttons</a>
-    <a href="gallery.html">Gallery</a>
+    <a href="gallery.html">Gallery</a><br>
+
+    <canvas id="myCanvas" width="2000" height="2000"></canvas>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var duration = 100;
+        var lines = [
+            { start: { x: 50, y: 350 }, end: { x: 350, y: 350 }, color: "black" },
+            { start: { x: 350, y: 350 }, end: { x: 350, y: 650 }, color: "white" },
+            { start: { x: 350, y: 650 }, end: { x: 50, y: 350 }, color: "red" },
+            { start: { x: 50, y: 350 }, end: { x: 50, y: 650 }, color: "orange" },
+            { start: { x: 50, y: 650 }, end: { x: 350, y: 350 }, color: "yellow" },
+            { start: { x: 350, y: 350 }, end: { x: 650, y: 50 }, color: "green" },
+            { start: { x: 650, y: 50 }, end: { x: 650, y: 350 }, color: "blue" },
+            { start: { x: 650, y: 350 }, end: { x: 350, y: 50 }, color: "purple" },
+            { start: { x: 350, y: 50 }, end: { x: 350, y: 350 }, color: "black" },
+            { start: { x: 350, y: 350 }, end: { x: 650, y: 350 }, color: "white" },
+            { start: { x: 650, y: 350 }, end: { x: 950, y: 350 }, color: "red" },
+            { start: { x: 950, y: 350 }, end: { x: 950, y: 650 }, color: "orange" },
+            { start: { x: 950, y: 650 }, end: { x: 650, y: 350 }, color: "yellow" },
+            { start: { x: 650, y: 350 }, end: { x: 650, y: 650 }, color: "green" },
+            { start: { x: 650, y: 650 }, end: { x: 950, y: 350 }, color: "blue" },
+            { start: { x: 950, y: 350 }, end: { x: 1250, y: 50 }, color: "purple" },
+            { start: { x: 1250, y: 50 }, end: { x: 1250, y: 350 }, color: "black" },
+            { start: { x: 1250, y: 350 }, end: { x: 950, y: 50 }, color: "white" },
+            { start: { x: 950, y: 50 }, end: { x: 950, y: 350 }, color: "red" },
+            { start: { x: 950, y: 350 }, end: { x: 1250, y: 350 }, color: "orange" },
+        ];
+        var currentIndex = 0;
+
+        function drawLine(start, end, duration, color) {
+            var startTime = null;
+
+            function animate(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var progress = (timestamp - startTime) / duration;
+                if (progress > 1) progress = 1;
+
+                ctx.beginPath();
+                ctx.moveTo(start.x, start.y);
+
+                var currentX = start.x + (end.x - start.x) * progress;
+                var currentY = start.y + (end.y - start.y) * progress;
+
+                ctx.lineTo(currentX, currentY);
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = color;
+                ctx.stroke();
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    currentIndex++;
+                    if (currentIndex < lines.length) {
+                        var nextLine = lines[currentIndex];
+                        drawLine(nextLine.start, nextLine.end, duration, nextLine.color);
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        drawLine(lines[currentIndex].start, lines[currentIndex].end, duration, lines[currentIndex].color);
+    </script>
 </body>
 </html>
