@@ -7,15 +7,33 @@
         body {
           color: rgb(0, 145, 255);
           font-size: 20px;
-          background-color: greenyellow;
+          background-color: rgb(222, 218, 218);
           text-align: center;
+          font-family: "Arial", sans-serif;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 24px;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            background-color: rgb(0, 145, 255);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #0081cc;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <a href="buttons.html">Buttons</a>
-    <a href="gallery.html">Gallery</a><br>
+    <h1>WELCOME</h1>
+    <a href="buttons.html" class="button">BUTTONS</a>
+    <a href="gallery.html" class="button">GALLERY</a><br>
 
     <canvas id="myCanvas" width="2000" height="2000"></canvas>
 
@@ -24,31 +42,31 @@
         var ctx = canvas.getContext("2d");
         var duration = 100;
         var lines = [
-            { start: { x: 50, y: 350 }, end: { x: 350, y: 350 }, color: "black" },
-            { start: { x: 350, y: 350 }, end: { x: 350, y: 650 }, color: "white" },
-            { start: { x: 350, y: 650 }, end: { x: 50, y: 350 }, color: "red" },
-            { start: { x: 50, y: 350 }, end: { x: 50, y: 650 }, color: "orange" },
-            { start: { x: 50, y: 650 }, end: { x: 350, y: 350 }, color: "yellow" },
-            { start: { x: 350, y: 350 }, end: { x: 650, y: 50 }, color: "green" },
-            { start: { x: 650, y: 50 }, end: { x: 650, y: 350 }, color: "blue" },
-            { start: { x: 650, y: 350 }, end: { x: 350, y: 50 }, color: "purple" },
-            { start: { x: 350, y: 50 }, end: { x: 350, y: 350 }, color: "black" },
-            { start: { x: 350, y: 350 }, end: { x: 650, y: 350 }, color: "white" },
-            { start: { x: 650, y: 350 }, end: { x: 950, y: 350 }, color: "red" },
-            { start: { x: 950, y: 350 }, end: { x: 950, y: 650 }, color: "orange" },
-            { start: { x: 950, y: 650 }, end: { x: 650, y: 350 }, color: "yellow" },
-            { start: { x: 650, y: 350 }, end: { x: 650, y: 650 }, color: "green" },
-            { start: { x: 650, y: 650 }, end: { x: 950, y: 350 }, color: "blue" },
-            { start: { x: 950, y: 350 }, end: { x: 1250, y: 50 }, color: "purple" },
-            { start: { x: 1250, y: 50 }, end: { x: 1250, y: 350 }, color: "black" },
-            { start: { x: 1250, y: 350 }, end: { x: 950, y: 50 }, color: "white" },
-            { start: { x: 950, y: 50 }, end: { x: 950, y: 350 }, color: "red" },
-            { start: { x: 950, y: 350 }, end: { x: 1250, y: 350 }, color: "orange" },
-            { start: { x: 1250, y: 350 }, end: { x: 1550, y: 350 }, color: "yellow" },
-            { start: { x: 1550, y: 350 }, end: { x: 1550, y: 650 }, color: "green" },
-            { start: { x: 1550, y: 650 }, end: { x: 1250, y: 350 }, color: "blue" },
-            { start: { x: 1250, y: 350 }, end: { x: 1250, y: 650 }, color: "purple" },
-            { start: { x: 1250, y: 650 }, end: { x: 1550, y: 350 }, color: "black" },
+            { start: { x: 100, y: 250 }, end: { x: 300, y: 250 }, color: "black" },
+            { start: { x: 300, y: 250 }, end: { x: 300, y: 450 }, color: "white" },
+            { start: { x: 300, y: 450 }, end: { x: 100, y: 250 }, color: "red" },
+            { start: { x: 100, y: 250 }, end: { x: 100, y: 450 }, color: "orange" },
+            { start: { x: 100, y: 450 }, end: { x: 300, y: 250 }, color: "yellow" },
+            { start: { x: 300, y: 250 }, end: { x: 500, y: 50 }, color: "green" },
+            { start: { x: 500, y: 50 }, end: { x: 500, y: 250 }, color: "blue" },
+            { start: { x: 500, y: 250 }, end: { x: 300, y: 50 }, color: "purple" },
+            { start: { x: 300, y: 50 }, end: { x: 300, y: 250 }, color: "black" },
+            { start: { x: 300, y: 250 }, end: { x: 500, y: 250 }, color: "white" },
+            { start: { x: 500, y: 250 }, end: { x: 700, y: 250 }, color: "red" },
+            { start: { x: 700, y: 250 }, end: { x: 700, y: 450 }, color: "orange" },
+            { start: { x: 700, y: 450 }, end: { x: 500, y: 250 }, color: "yellow" },
+            { start: { x: 500, y: 250 }, end: { x: 500, y: 450 }, color: "green" },
+            { start: { x: 500, y: 450 }, end: { x: 700, y: 250 }, color: "blue" },
+            { start: { x: 700, y: 250 }, end: { x: 900, y: 50 }, color: "purple" },
+            { start: { x: 900, y: 50 }, end: { x: 900, y: 250 }, color: "black" },
+            { start: { x: 900, y: 250 }, end: { x: 700, y: 50 }, color: "white" },
+            { start: { x: 700, y: 50 }, end: { x: 700, y: 250 }, color: "red" },
+            { start: { x: 700, y: 250 }, end: { x: 900, y: 250 }, color: "orange" },
+            { start: { x: 900, y: 250 }, end: { x: 1100, y: 250 }, color: "yellow" },
+            { start: { x: 1100, y: 250 }, end: { x: 1100, y: 450 }, color: "green" },
+            { start: { x: 1100, y: 450 }, end: { x: 900, y: 250 }, color: "blue" },
+            { start: { x: 900, y: 250 }, end: { x: 900, y: 450 }, color: "purple" },
+            { start: { x: 900, y: 450 }, end: { x: 1100, y: 250 }, color: "black" },
         ];
         var currentIndex = 0;
 

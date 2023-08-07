@@ -9,6 +9,7 @@
       font-size: 20px;
       background-color: beige;
       text-align: center;
+      font-family: "Arial", sans-serif;
     }
 
     /* Style for the buttons */
@@ -23,6 +24,24 @@
 	  background-color: transparent; /* Make the background transparent by default */
       transition: background-color 0.3s, transform 0.1s; /* Add a smooth transition effect */
     }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 24px;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      background-color: rgb(0, 145, 255);
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+  }
+
+  .button:hover {
+      background-color: #0081cc;
+  }
 
 	/*input[name^="BUTTON"]:hover {
 		background-color: white; 
@@ -47,8 +66,8 @@
 </head>
 
 <body>
-  <h1>Welcome to the Rainbow Oracle!</h1>
-  <a href="index.html">Home Page</a>
+  <h1>RAINBOW ORACLE</h1>
+  <a href="index.html" class="button">HOME</a>
   <script>
 
     var fortunes = [

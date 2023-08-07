@@ -1,80 +1,130 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Home Page</title>
     <style>
         body {
-          color: rgb(0, 145, 255);
-          font-size: 20px;
-          background-color: rgb(173, 164, 165);
-		  text-align: center;
+            color: rgb(0, 145, 255);
+            font-size: 20px;
+            background-color: rgb(222, 218, 218);
+            text-align: center;
+            font-family: "Arial", sans-serif;
         }
 
-		.picture-frame {
-            border: 20px solid black; /* Add a border around the frame */
-            padding: 10px; /* Add padding inside the frame */
-            display: inline-block; /* Display the frame as an inline block */
-            margin: 20px; /* Add margin for spacing */
+        .picture-frame {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
         }
 
-		#galleryImage {
-            max-width: 50%; /* Adjust as needed */
-            max-height: 50%; /* Adjust as needed */
+        #galleryImage {
+            max-width: 50%;
+            max-height: 50%;
         }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 24px;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            background-color: rgb(0, 145, 255);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #0081cc;
+        }
+
+        /* Animated border styles */
+        .animated-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 10px solid transparent;
+            border-radius: 10px;
+            animation: drawBorder 10s infinite linear;
+        }
+
+		@keyframes drawBorder {
+			0% {
+				border-color: red;
+				clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+			}
+			25% {
+				border-color: orange;
+				clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+			}
+			50% {
+				border-color: greenyellow;
+				clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+			}
+			75% {
+				border-color: #00aaff;
+				clip-path: polygon(0% 100%, 100% 0%, 0% 100%, 100% 100%);
+			}
+			100% {
+				border-color: purple;
+				clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+			}
+		}
     </style>
 </head>
 <body>
-	<h1>Welcome to the Kitty Gang Gallery!</h1>
-	<a href="index.html">Home Page</a><br>
-	<button onclick="previousImage()"><<<</button>
-	<button onclick="nextImage()">>>></button><br>
+    <h1>KITTY GANG GALLERY</h1>
+    <a href="index.html" class="button">HOME</a><br>
+    <button onclick="previousImage()" class="button"><<<</button>
+    <button onclick="nextImage()" class="button">>>></button><br>
 
-	<div class="picture-frame">
+    <div class="picture-frame">
+        <div class="animated-border"></div> <!-- Animated border -->
         <img id="galleryImage" src="" alt="Kitty Gang Image">
-        <p>Caption for Image 1</p>
     </div>
-	<script>
-		var currentIndex = 0; // Index of the currently displayed image
-		var images = ["Image1.jpg", "Image2.jpg", "Image3.jpg", "Image4.jpg", "Image5.jpg", "Image6.jpg", "Image7.jpg", "Image8.jpg", "Image9.jpg", "Image10.jpg", "Image11.jpg", "Image12.jpg"]; // List of image filenames
+    <script>
+        var currentIndex = 0;
+        var images = ["Image1.jpg", "Image2.jpg", "Image3.jpg", "Image4.jpg", "Image5.jpg", "Image6.jpg", "Image7.jpg", "Image8.jpg", "Image9.jpg", "Image10.jpg", "Image11.jpg", "Image12.jpg"];
 
-		function showImage(index) {
-			var imgElement = document.getElementById("galleryImage");
-			var captionElement = document.getElementById("imageCaption");
-	
-			var imgFolder = "img/"; // Change this to your actual image folder path
+        function showImage(index) {
+            var imgElement = document.getElementById("galleryImage");
 
-			if (index >= 0 && index < images.length) {
-				var imageUrl = imgFolder + images[index];
-				imgElement.src = imageUrl;
-				captionElement.textContent = "Caption for Image " + (index + 1);
-				currentIndex = index;
-			}
-		}
-	
-		function previousImage() {
-			if (currentIndex > 0){
-				currentIndex -= 1;
-			} else {
-				currentIndex = (images.length - 1);
-			}
-			
-			showImage(currentIndex);
-		}
-	
-		function nextImage() {
-			if (currentIndex < (images.length - 1)){
-				currentIndex += 1;
-			} else{
-				currentIndex = 0;
-			}
-			
-			showImage(currentIndex);
-		}
-	
-		window.onload = function() {
-			showImage(0); // Show the first image when the page loads
-		};
-	</script>
+            var imgFolder = "img/";
+
+            if (index >= 0 && index < images.length) {
+                var imageUrl = imgFolder + images[index];
+                imgElement.src = imageUrl;
+                currentIndex = index;
+            }
+        }
+
+        function previousImage() {
+            if (currentIndex > 0) {
+                currentIndex -= 1;
+            } else {
+                currentIndex = images.length - 1;
+            }
+
+            showImage(currentIndex);
+        }
+
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                currentIndex += 1;
+            } else {
+                currentIndex = 0;
+            }
+
+            showImage(currentIndex);
+        }
+
+        window.onload = function () {
+            showImage(0);
+        };
+    </script>
 </body>
 </html>
