@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Atoms</title>
+    <style>
+        body {
+            color: rgb(0, 145, 255);
+            font-size: 10px;
+            background-color: rgb(222, 218, 218);
+            text-align: center;
+            font-family: "Arial", sans-serif;
+        }
+
+        #gameCanvas {
+            background-color: black;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 24px;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            background-color: rgb(0, 145, 255);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #0081cc;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ATOMS</h1><br>
+	<h2>Click to add more atoms.</h2>
+	<h2>Press left or right to reverse X direction.</h2>
+	<h2>Press up or down to reverse Y direction.</h2><br>
+    <a href="index.html" class="button">HOME</a><br>
+    <canvas id="gameCanvas" width="800" height="600"></canvas><br>
+    <script>
+        class Ball {
+            constructor(x, y, size, speedX, speedY, color) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.speedX = speedX;
+                this.speedY = speedY;
+                this.color = color;
+            }
+
+			checkCollision(otherBall) {
+				const dx = this.x - otherBall.x;
+				const dy = this.y - otherBall.y;
+				const distance = Math.sqrt(dx * dx + dy * dy);
+		
+				if (distance < this.size + otherBall.size) {
+					// Collision occurred, reverse directions of both balls
+					this.reverseX();
+					this.reverseY();
+					otherBall.reverseX();
+					otherBall.reverseY();
+				}
+			}
+
+            update(canvas, balls) {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Ball collision with top and bottom walls
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.speedY = -this.speedY;
+                }
+
+                // Ball collision with left and right walls
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.speedX = -this.speedX;
+                }
+
+				for (var otherBall of balls) {
+					if (otherBall !== this) {
+						this.checkCollision(otherBall);
+					}
+				}
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            reverseX() {
+                this.speedX = -this.speedX;
+            }
+
+            reverseY() {
+                this.speedY = -this.speedY;
+            }
+        }
+
+        window.onload = function () {
+            const canvas = document.getElementById("gameCanvas");
+            const ctx = canvas.getContext("2d");
+
+            var balls = [
+                new Ball(canvas.width / 2, canvas.height / 2, 10, 5, 2, "red"),
+                new Ball(2 * canvas.width / 3, 2 * canvas.height / 3, 10, -5, -2, "orange"),
+                new Ball(canvas.width / 4, canvas.height / 4, 10, 5, -2, "yellow"),
+                new Ball(2 * canvas.width / 5, 2 * canvas.height / 5, 10, -5, 2, "green"),
+                new Ball(canvas.width / 6, canvas.height / 6, 10, 5, 2, "blue"),
+                new Ball(5 * canvas.width / 7, 5 * canvas.height / 7, 10, -5, -2, "purple")
+            ];
+
+            // Update game state
+            function update() {
+                for (const ball of balls) {
+                    ball.update(canvas, balls);
+                }
+            }
+
+            // Draw game elements
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (const ball of balls) {
+                    ball.draw(ctx);
+                }
+            }
+
+            // Game loop
+            function gameLoop() {
+                update();
+                draw();
+                requestAnimationFrame(gameLoop);
+            }
+
+            canvas.addEventListener("click", function (event) {
+				const rect = canvas.getBoundingClientRect();
+				const mouseX = event.clientX - rect.left;
+				const mouseY = event.clientY - rect.top;
+				const color_options = ["pink", "cyan", "turquoise", "white", "teal", "magenta", "beige", "gray", "apricot"];
+				
+				const randomDecimal = Math.random();
+				const randomNumber = Math.floor(randomDecimal * color_options.length);
+			
+				balls.push(new Ball(mouseX, mouseY, 10, 2, -5, color_options[randomNumber]));
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if ((event.key === "ArrowUp") || (event.key === "ArrowDown")) {
+                    for (var ball of balls) {
+                        ball.reverseY();
+                    }
+                }
+                if ((event.key === "ArrowRight") || (event.key === "ArrowLeft")) {
+                    for (var ball of balls) {
+                        ball.reverseX();
+                    }
+                }
+            });
+
+            gameLoop();
+        };
+    </script>
+</body>
+
+</html>
