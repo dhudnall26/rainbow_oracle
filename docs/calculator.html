@@ -3,6 +3,10 @@
 
 <head>
     <title>Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LCDMono&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=DS+Digital&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/seven-segment" rel="stylesheet">
+                
     <style>
         body {
             color: rgb(0, 145, 255);
@@ -12,103 +16,141 @@
             font-family: "Arial", sans-serif;
         }
 
-        .picture-frame {
+        .container {
             position: relative;
             display: inline-block;
             margin: 20px;
+            margin-top: 200px;
         }
 
-        #galleryImage {
-            max-width: 50%;
-            max-height: 50%;
+        .rectangle {
+            width: 800px;
+            height: 850px;
+            background-color: red;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            animation: changeColor 10s infinite linear; /* Add the color-changing animation */
+        }
+
+        @keyframes changeColor {
+            0% {
+                background-color: red;
+            }
+            25% {
+                background-color: orange;
+            }
+            50% {
+                background-color: greenyellow;
+            }
+            75% {
+                background-color: #00aaff;
+            }
+            100% {
+                background-color: purple;
+            }
         }
 
         .button {
+            position: absolute;
+            height: 120px;
+            width: 170px; /* Set the desired width */
+            top: 50%; /* Adjust vertical positioning */
+            left: 50%; /* Adjust horizontal positioning */
+            transform: translate(-50%, -50%); /* Center the button */
             display: inline-block;
             padding: 10px 20px;
-            margin: 10px;
-            font-size: 24px;
+            font-size: 60px;
             text-align: center;
             text-decoration: none;
             border: none;
-            background-color: rgb(0, 145, 255);
-            color: white;
+            background-color: rgb(233, 230, 230);
+            color: black;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
         }
+
+        /* Position each button individually */
+        #homeButton { top: 20%; left: 50%; background-color: rgb(0, 145, 255); color: white; font-size: 24px; font-family: sans-serif; height: auto; width: auto; font-weight: normal; border-radius: 5px;}
+        #number7 { top: 30%; left: 15%; }
+        #number8 { top: 30%; left: 38.3%; }
+        #number9 { top: 30%; left: 61.6%; }
+        #division { top: 30%; left: 85%; font-size: 90px; line-height: 18px; vertical-align: top; font-weight: normal; font-family: 'LCDMono', monospace;}
+        #number4 { top: 48.3%; left: 15%; }
+        #number5 { top: 48.3%; left: 38.3%; }
+        #number6 { top: 48.3%; left: 61.6%; }
+        #multiplication { top: 48.3%; left: 85%; font-family: sans-serif; font-size: 50px; }
+        #number1 { top: 66.6%; left: 15%; font-family: 'San Francisco', 'Helvetica Neue', sans-serif; font-size: 68px; }
+        #number2 { top: 66.6%; left: 38.3%; }
+        #number3 { top: 66.6%; left: 61.6%; }
+        #subtraction { top: 66.6%; left: 85%; line-height: 18px; vertical-align: top; font-weight: normal; font-family: 'LCDMono', monospace; }
+        #number0 { top: 85%; left: 15%; }
+        #decimal { top: 85%; left: 38.3%; font-size: 140px; line-height: 18px; vertical-align: top; font-family: 'LCDMono', monospace; }
+        #addition { top: 85%; left: 61.6%; font-family: 'LCDMono', monospace; }
+        #equals { top: 85%; left: 85%; background-color: orange; color: white; font-size: 100px; line-height: 18px; vertical-align: top; }
 
         .button:hover {
             background-color: #0081cc;
         }
 
-        /* Animated border styles */
-        .animated-border {
+        .input-box {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 20px solid transparent;
-            border-radius: 40px;
-            animation: drawBorder 10s infinite linear;
-        }
-
-        @keyframes drawBorder {
-            0% {
-                border-color: red;
-            }
-            25% {
-                border-color: orange;
-            }
-            50% {
-                border-color: greenyellow;
-            }
-            75% {
-                border-color: #00aaff;
-            }
-            100% {
-                border-color: purple;
-            }
+            top: 35px; /* Adjust vertical positioning */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%);
+            width: 700px;
+            height: 100px;
+            padding: 10px;
+            font-size: 100px;
+            border: 1px solid rgb(0, 145, 255);
+            border-radius: 20px;
+            color: rgb(61, 60, 60);
+            background-color: rgb(196, 211, 196);
+            font-family: 'Seven Segment', sans-serif;
+            text-align: right; /* Align text to the right */
         }
     </style>
 </head>
 
 <body>
     <h1>CALCULATOR</h1>
+    <h2>Press equals 3 times or delete/backspace to clear. Press equals or enter to calculate.</h2>
     <a href="index.html" id="homeButton" class="button">HOME</a><br>
-    <button onclick="number(0)" class="button">0</button>
-    <button onclick="number(1)" class="button">1</button>
-    <button onclick="number(2)" class="button">2</button>
-    <button onclick="number(3)" class="button">3</button>
-    <button onclick="number(4)" class="button">4</button>
-    <button onclick="number(5)" class="button">5</button>
-    <button onclick="number(6)" class="button">6</button>
-    <button onclick="number(7)" class="button">7</button>
-    <button onclick="number(8)" class="button">8</button>
-    <button onclick="number(9)" class="button">9</button>
-    <button onclick="number('.')" class="button">.</button>
-    <button onclick="mathOperation('+')" class="button">+</button>
-    <button onclick="mathOperation('-')" class="button">-</button>
-    <button onclick="mathOperation('*')" class="button">*</button>
-    <button onclick="mathOperation('/')" class="button">/</button>
-    <button onclick="equals()" class="button">=</button>
-    <label for="total">Total:</label>
-    <input type="text" id="total" name="total"><br>
+    <div class="container">
+        <div class="rectangle">
+            <div class="animated-border"></div>
+        </div>
+        <input type="text" id="total" name="total" class="input-box" placeholder="0">
+        <button id="number0" onclick="number(0)" class="button">0</button>
+        <button id="number1" onclick="number(1)" class="button">1</button>
+        <button id="number2" onclick="number(2)" class="button">2</button>
+        <button id="number3" onclick="number(3)" class="button">3</button>
+        <button id="number4" onclick="number(4)" class="button">4</button>
+        <button id="number5" onclick="number(5)" class="button">5</button>
+        <button id="number6" onclick="number(6)" class="button">6</button>
+        <button id="number7" onclick="number(7)" class="button">7</button>
+        <button id="number8" onclick="number(8)" class="button">8</button>
+        <button id="number9" onclick="number(9)" class="button">9</button>
+        <button id="decimal" onclick="number('.')" class="button">·</button>
+        <button id="addition" onclick="mathOperation('+')" class="button">+</button>
+        <button id="subtraction" onclick="mathOperation('-')" class="button">-</button>
+        <button id="multiplication" onclick="mathOperation('*')" class="button">x</button>
+        <button id="division" onclick="mathOperation('/')" class="button">÷</button>
+        <button id="equals" onclick="equals()" class="button">=</button>
+    </div>
+    
     <!-- <label for="value">Value:</label>
     <input type="text" id="value" name="value">
     <label for="previous">Previous:</label>
     <input type="text" id="previous" name="previous"><br> -->
-
-    <div class="picture-frame">
-        <div class="animated-border"></div> <!-- Animated border -->
-        <img id="galleryImage" src="" alt="Kitty Gang Image">
-    </div>
 
     <script>
         var value = "";
         var previous_value = "";
         var operation = "";
         const totalInput = document.getElementById("total");
+        var equalsCount = 0;
         //const valueInput = document.getElementById("value");
         //const previousInput = document.getElementById("previous");
 
@@ -126,27 +168,62 @@
         }
 
         function equals() {
-            if (operation == '+'){
-                totalInput.value = parseFloat(previous_value) +  parseFloat(value);
-            } else if (operation == '-'){
-                totalInput.value = parseFloat(previous_value) -  parseFloat(value);
-            } else if (operation == '*'){
-                totalInput.value = parseFloat(previous_value) *  parseFloat(value);
-            } else if (operation == '/'){
-                totalInput.value = parseFloat(previous_value) /  parseFloat(value);
+            equalsCount++; // Increment the count
+
+            if (equalsCount === 3) {
+                // Clear the text and reset the count
+                totalInput.value = "";
+                clearInputs();
+                return;
+            }
+
+            var textBox = document.getElementById("total");
+            var calculation = "";
+            
+            // Extract the operation and previous value from the input text
+            var operationIndex = textBox.value.search(/[+\-*/]/);
+            if (operationIndex !== -1) {
+                operation = textBox.value.charAt(operationIndex);
+                previous_value = textBox.value.substring(0, operationIndex);
+                value = textBox.value.substring(operationIndex + 1);
+            }
+            
+            // Perform the calculation based on the detected operation
+            if (operation === '+') {
+                equalsCount = 0;
+                totalInput.value = parseFloat(previous_value) + parseFloat(value);
+            } else if (operation === '-') {
+                equalsCount = 0;
+                totalInput.value = parseFloat(previous_value) - parseFloat(value);
+            } else if (operation === '*') {
+                equalsCount = 0;
+                totalInput.value = parseFloat(previous_value) * parseFloat(value);
+            } else if (operation === '/') {
+                equalsCount = 0;
+                totalInput.value = parseFloat(previous_value) / parseFloat(value);
             } else {
                 totalInput.value = value;
             }
-            value = "";
+            value = totalInput.value;
             previous_value = "";
             operation = "";
-            //clearInputs();
         }
 
-        //function clearInputs() {
-        //    valueInput.value = "";
-        //    previousInput.value = "";
-        //}
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                equals(); // Call the equals function when Enter key is pressed
+            } else if (event.key === "Backspace" || event.key === "Delete") {
+                totalInput.value = "";
+                clearInputs();
+            }
+        });
+
+        function clearInputs() {
+            value = "";
+            value = "";
+            operation = "";
+            equalsCount = 0;
+        }
     </script>
 </body>
 </html>
