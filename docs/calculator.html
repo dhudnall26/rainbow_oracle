@@ -122,21 +122,21 @@
             <div class="animated-border"></div>
         </div>
         <input type="text" id="total" name="total" class="input-box" placeholder="0">
-        <button id="number0" onclick="number(0)" class="button">0</button>
-        <button id="number1" onclick="number(1)" class="button">1</button>
-        <button id="number2" onclick="number(2)" class="button">2</button>
-        <button id="number3" onclick="number(3)" class="button">3</button>
-        <button id="number4" onclick="number(4)" class="button">4</button>
-        <button id="number5" onclick="number(5)" class="button">5</button>
-        <button id="number6" onclick="number(6)" class="button">6</button>
-        <button id="number7" onclick="number(7)" class="button">7</button>
-        <button id="number8" onclick="number(8)" class="button">8</button>
-        <button id="number9" onclick="number(9)" class="button">9</button>
-        <button id="decimal" onclick="number('.')" class="button">·</button>
-        <button id="addition" onclick="mathOperation('+')" class="button">+</button>
-        <button id="subtraction" onclick="mathOperation('-')" class="button">-</button>
-        <button id="multiplication" onclick="mathOperation('*')" class="button">x</button>
-        <button id="division" onclick="mathOperation('/')" class="button">÷</button>
+        <button id="number0" onclick="inputChar(0)" class="button">0</button>
+        <button id="number1" onclick="inputChar(1)" class="button">1</button>
+        <button id="number2" onclick="inputChar(2)" class="button">2</button>
+        <button id="number3" onclick="inputChar(3)" class="button">3</button>
+        <button id="number4" onclick="inputChar(4)" class="button">4</button>
+        <button id="number5" onclick="inputChar(5)" class="button">5</button>
+        <button id="number6" onclick="inputChar(6)" class="button">6</button>
+        <button id="number7" onclick="inputChar(7)" class="button">7</button>
+        <button id="number8" onclick="inputChar(8)" class="button">8</button>
+        <button id="number9" onclick="inputChar(9)" class="button">9</button>
+        <button id="decimal" onclick="inputChar('.')" class="button">·</button>
+        <button id="addition" onclick="inputChar('+')" class="button">+</button>
+        <button id="subtraction" onclick="inputChar('-')" class="button">-</button>
+        <button id="multiplication" onclick="inputChar('*')" class="button">x</button>
+        <button id="division" onclick="inputChar('/')" class="button">÷</button>
         <button id="equals" onclick="equals()" class="button">=</button>
     </div>
     
@@ -147,66 +147,42 @@
 
     <script>
         var value = "";
-        var previous_value = "";
-        var operation = "";
         const totalInput = document.getElementById("total");
         var equalsCount = 0;
-        //const valueInput = document.getElementById("value");
-        //const previousInput = document.getElementById("previous");
 
-        function number(number) {
-            value += number.toString();
-            totalInput.value = previous_value + operation + value;
+        function inputChar(char){
+            value = value + char;
+            totalInput.value = value;
         }
-
+        
         function mathOperation(op) {
-            operation = op;
-            previous_value = value;
-            totalInput.value = previous_value + operation;
-            //previousInput.value = previous_value;
-            value = "";
+            if (value !== "") {
+                value += op;
+                totalInput.value = value;
+            }
         }
-
+        
         function equals() {
-            equalsCount++; // Increment the count
+            equalsCount++;
 
+            value = totalInput.value
+        
             if (equalsCount === 3) {
-                // Clear the text and reset the count
                 totalInput.value = "";
                 clearInputs();
                 return;
             }
-
-            var textBox = document.getElementById("total");
-            var calculation = "";
             
-            // Extract the operation and previous value from the input text
-            var operationIndex = textBox.value.search(/[+\-*/]/);
-            if (operationIndex !== -1) {
-                operation = textBox.value.charAt(operationIndex);
-                previous_value = textBox.value.substring(0, operationIndex);
-                value = textBox.value.substring(operationIndex + 1);
+            var result = "";
+            if (value !== "") {
+                result = eval(value); // Evaluate the calculation string
             }
             
-            // Perform the calculation based on the detected operation
-            if (operation === '+') {
+            totalInput.value = result;
+            if ((value != result) && (value != "")){
                 equalsCount = 0;
-                totalInput.value = parseFloat(previous_value) + parseFloat(value);
-            } else if (operation === '-') {
-                equalsCount = 0;
-                totalInput.value = parseFloat(previous_value) - parseFloat(value);
-            } else if (operation === '*') {
-                equalsCount = 0;
-                totalInput.value = parseFloat(previous_value) * parseFloat(value);
-            } else if (operation === '/') {
-                equalsCount = 0;
-                totalInput.value = parseFloat(previous_value) / parseFloat(value);
-            } else {
-                totalInput.value = value;
             }
-            value = totalInput.value;
-            previous_value = "";
-            operation = "";
+            value = result.toString();
         }
 
         document.addEventListener("keydown", function (event) {
@@ -220,8 +196,6 @@
 
         function clearInputs() {
             value = "";
-            value = "";
-            operation = "";
             equalsCount = 0;
         }
     </script>
