@@ -92,6 +92,94 @@
             z-index: -1; /* Adjust the z-index if needed */
         }
 
+        .crab {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 80px;
+            background-color: #E57373;
+            border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+            z-index: 2;
+        }
+
+        .crab-body {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 50px;
+            background-color: #E57373;
+            border-radius: 50%;
+            z-index: 3;
+        }
+
+        .crab-eye {
+            position: absolute;
+            bottom: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .crab-eye.left {
+            left: 30%;
+        }
+
+        .crab-eye.right {
+            right: 30%;
+        }
+
+        .crab-leg {
+            position: absolute;
+            bottom: -50px;
+            width: 20px;
+            height: 80px;
+            background-color: #E57373;
+            border-radius: 50%;
+            transform: rotate(10deg);
+            transform-origin: bottom right;
+        }
+
+        .crab-leg.first {
+            left: 10%;
+            transform: rotate(-10deg);
+            transform-origin: bottom left;
+        }
+
+        .crab-leg.second {
+            left: 30%;
+        }
+
+        .crab-leg.third {
+            left: 50%;
+        }
+
+        .crab-leg.fourth {
+            right: 10%;
+            transform: rotate(-10deg);
+            transform-origin: bottom right;
+        }
+
+        .island:hover .crab {
+            background-color: #e3a2a2;
+        }
+
+        .island:hover .crab-body {
+            background-color: #e3a2a2;
+        }
+
+        .island:hover .crab-leg {
+            background-color: #e3a2a2;
+            transform: rotate(0);
+        }
+
+        .island:hover {
+            background-color: #f0d6c5;
+        }
         .sky {
             position: absolute;
             width: 200%;
@@ -409,7 +497,16 @@
 
     <button id="islandButton" class="island-button">
         <div class="island">
-            <!-- Content for the island button, if needed -->
+            <div class="crab">
+                <div class="crab-body">
+                    <div class="crab-eye left"></div>
+                    <div class="crab-eye right"></div>
+                </div>
+                <div class="crab-leg first"></div>
+                <div class="crab-leg second"></div>
+                <div class="crab-leg third"></div>
+                <div class="crab-leg fourth"></div>
+            </div>
         </div>
     </button>
     
