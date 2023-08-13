@@ -92,20 +92,29 @@
             z-index: -1; /* Adjust the z-index if needed */
         }
 
-        .crab {
+        .crab-container {
             position: absolute;
-            bottom: 30%;
-            left: 50%;
+            bottom: 25%;
+            left: 30%;
             transform: translateX(-50%);
             width: 150px;
             height: 80px;
+            animation: walk 10s linear infinite alternate;
+            animation-delay: 1s;
+            z-index: 50;
+        }
+
+        .crab {
+            width: 100%;
+            height: 100%;
             background-color: #E57373;
             border-radius: 50% 50% 0 0 / 50% 50% 0 0;
-            z-index: 2;
+            position: relative;
         }
 
         .crab-body {
             position: absolute;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
@@ -135,7 +144,7 @@
 
         .crab-leg {
             position: absolute;
-            bottom: -50px;
+            bottom: -40px;
             width: 20px;
             height: 80px;
             background-color: #E57373;
@@ -147,21 +156,60 @@
         .crab-leg.first {
             left: 10%;
             transform: rotate(-10deg);
-            transform-origin: bottom left;
+            transform-origin: top left;
+            animation: firstLegMove 1s linear infinite alternate;
+        }
+
+        @keyframes firstLegMove {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
         }
 
         .crab-leg.second {
             left: 30%;
+            transform: rotate(10deg);
+            transform-origin: top left;
+            animation: secondLegMove 1s linear infinite alternate;
+        }
+
+        @keyframes secondLegMove {
+            0%, 100% {
+                transform: rotate(10deg);
+            }
+            50% {
+                transform: rotate(-10deg);
+            }
         }
 
         .crab-leg.third {
             left: 50%;
+            transform: rotate(-10deg);
+            transform-origin: top left;
+            animation: firstLegMove 1s linear infinite alternate;
         }
 
         .crab-leg.fourth {
             right: 10%;
-            transform: rotate(-10deg);
-            transform-origin: bottom right;
+            transform: rotate(10deg);
+            transform-origin: top left;
+            animation: secondLegMove 1s linear infinite alternate;
+        }
+
+        .island:hover .crab-leg {
+            transform: rotate(0);
+        }
+
+        @keyframes walk {
+            0%, 100% {
+                transform: translateX(-50%);
+            }
+            50% {
+                transform: translateX(calc(-50% + 400px));
+            }
         }
 
         .island:hover .crab {
@@ -497,15 +545,17 @@
 
     <button id="islandButton" class="island-button">
         <div class="island">
-            <div class="crab">
-                <div class="crab-body">
-                    <div class="crab-eye left"></div>
-                    <div class="crab-eye right"></div>
+            <div class="crab-container">
+                <div class="crab">
+                    <div class="crab-body">
+                        <div class="crab-eye left"></div>
+                        <div class="crab-eye right"></div>
+                    </div>
+                    <div class="crab-leg first"></div>
+                    <div class="crab-leg second"></div>
+                    <div class="crab-leg third"></div>
+                    <div class="crab-leg fourth"></div>
                 </div>
-                <div class="crab-leg first"></div>
-                <div class="crab-leg second"></div>
-                <div class="crab-leg third"></div>
-                <div class="crab-leg fourth"></div>
             </div>
         </div>
     </button>
