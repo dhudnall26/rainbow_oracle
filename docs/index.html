@@ -67,6 +67,172 @@
             100% { transform: translate(-50%, -50%) rotate(-360deg); }
         }
 
+        .bird {
+            position: relative;
+            top: 100%;
+            left: 50%;
+            width: 20px;
+            height: 50px;
+            background-color: #555;
+            border-radius: 50px 50px 50px 50px;
+            z-index: 50;
+            animation: fly 5s linear infinite;
+        }
+
+        .head {
+            position: absolute;
+            top: 20%;
+            left: 20px;
+            width: 10px;
+            height: 20px;
+            background-color: #555;
+            border-radius: 50%;
+        }
+
+        .bird-eye {
+            position: absolute;
+            bottom: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(247, 245, 245);
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .bird-eye.left {
+            left: 30%;
+        }
+
+        .bird-eye.right {
+            right: 30%;
+        }
+
+        .bird-eye.left.pupil {
+            left: 70%;
+            background-color: rgb(1, 0, 0);
+            width: 5px;
+            height: 5px;
+        }
+
+        .bird-eye.right.pupil {
+            left: 70%;
+            background-color: rgb(1, 0, 0);
+            width: 5px;
+            height: 5px;
+        }
+
+        .beak {
+            position: absolute;
+            top: 5px;
+            left: -5px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #f90;
+            transform: rotate(45deg);
+        }
+
+        .leftWing {
+            position: absolute;
+            top: 30px;
+            left: -30px;
+            width: 30px;
+            height: 80px;
+            background-color: #555;
+            border-radius: 50%;
+            transform: rotate(90deg);
+            transform-origin: top right;
+            animation: flapLeft 1s linear infinite;
+        }
+
+        .rightWing {
+            position: absolute;
+            top: -80px;
+            left: -10px;
+            width: 30px;
+            height: 80px;
+            background-color: #555;
+            border-radius: 50%;
+            transform: rotate(90deg);
+            transform-origin: bottom left;
+            animation: flapRight 1s linear infinite;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateX(100%) translateY(50%);
+            }
+            50% {
+                transform: translateX(0%) translateY(100%);
+            }
+            100% {
+                transform: translateX(100%) translateY(50%);
+            }
+        }
+
+        @keyframes flapLeft {
+            0% {
+                transform: rotate(90deg);
+            }
+            50% {
+                transform: rotate(45deg);
+            }
+            100% {
+                transform: rotate(90deg);
+            }
+        }
+
+        @keyframes flapRight {
+            0% {
+                transform: rotate(90deg);
+            }
+            50% {
+                transform: rotate(135deg);
+            }
+            100% {
+                transform: rotate(90deg);
+            }
+        }
+
+        @keyframes glide {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(45deg);
+            }
+            50% {
+                transform: rotate(0deg);
+            }
+            75% {
+                transform: rotate(-45deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .bird:hover {
+            background-color: #4899ce;
+            animation: glide 5s linear infinite;
+            transform: translateX(0%) translateY(100%);
+        }
+
+        .bird:hover .leftWing {
+            background-color: #4899ce;
+            animation: none;
+        }
+
+        .bird:hover .rightWing {
+            background-color: #4899ce;
+            animation: none;
+        }
+
+        .bird:hover .head {
+            background-color: #4899ce;
+        }
+
         .island {
             position: absolute;
             width: 800px;
@@ -461,33 +627,7 @@
             100% {
                 transform: translateY(600px); /* Distance raindrop falls */
             }
-        }
-
-        .bird {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            font-size: 10px;
-            font-family: "Cooper Black", sans-serif;
-            color: #07041f;
-            opacity: 0.7;
-            transform: translateY(100%);
-            animation: fly 10s linear infinite;
-        }
-        
-        @keyframes fly {
-            0% {
-                transform: translateX(100%) translateY(-50%);
-            }
-            50% {
-                transform: translateX(-100%) translateY(50%);
-            }
-            100% {
-                transform: translateX(100%) translateY(-50%);
-            }
-        }
-
-        
+        } 
     </style>
 </head>
 <body>
@@ -501,13 +641,33 @@
     <div class="sky"></div>
     <div class="wavy-line"></div>
 
-    <!-- <div class="birds"> -->
-    <div class="bird" style="top: 15%; left: 48%;">M</div>
-    <div class="bird" style="top: 17%; left: 50%;">M</div>
-    <div class="bird" style="top: 15%; left: 52%;">M</div>
-    <div class="bird" style="top: 13%; left: 46%;">M</div>
-    <div class="bird" style="top: 13%; left: 54%;">M</div>
-    <!-- </div> -->
+    <div class="bird">
+        <div class="head">
+            <div class="leftWing"></div>
+            <div class="rightWing"></div>
+            <div class="bird-eye left">
+                <div class="bird-eye left pupil"></div>
+            </div>
+            <div class="bird-eye right">
+                <div class="bird-eye right pupil"></div>
+            </div>
+            <div class="beak"></div>
+        </div>
+    </div>
+
+    <div class="bird" style="left: 40%">
+        <div class="head">
+            <div class="leftWing"></div>
+            <div class="rightWing"></div>
+            <div class="bird-eye left">
+                <div class="bird-eye left pupil"></div>
+            </div>
+            <div class="bird-eye right">
+                <div class="bird-eye right pupil"></div>
+            </div>
+            <div class="beak"></div>
+        </div>
+    </div>
 
     <div class="palm-container" id="buttonsButton">
         <div class="palm-tree" style="bottom: 20%;">
