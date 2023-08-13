@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Cooper+Black&display=swap" rel="stylesheet">
+
     <title>Home Page</title>
     <style>
         body {
@@ -135,6 +137,39 @@
             padding: 0 20%;
             /*animation: sway 4s infinite alternate; /* Animation for swaying */
             z-index: 0; /* Higher z-index to place on top of the island */
+        }
+
+        .palm-tree:hover .palm-leaves {
+            border-bottom: 200px solid #76e276;
+        }
+        
+        .palm-tree:hover .coconut {
+            opacity: 1; /* Show the coconut on hover */
+            animation: fallCoconut .2s linear forwards; /* Animation to make coconut fall */
+        }
+
+        .coconut {
+            width: 30px;
+            height: 30px;
+            background-color: #4d260c; /* Brown color for the coconut */
+            position: absolute;
+            bottom: 43%; /* Initial position above the palm tree */
+            left: 100%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            z-index: 10; /* Place above the palm leaves */
+            opacity: 0; /* Initially hide the coconut */
+        }
+         
+        @keyframes fallCoconut {
+            0% {
+                opacity: 1;
+                bottom: 43%;
+            }
+            100% {
+                opacity: 1;
+                bottom: -5px; /* Position the coconut just above the ground */
+            }
         }
 
         /* New style for the palm tree */
@@ -292,6 +327,30 @@
             }
         }
 
+        .bird {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            font-size: 10px;
+            font-family: "Cooper Black", sans-serif;
+            color: #07041f;
+            opacity: 0.7;
+            transform: translateY(100%);
+            animation: fly 10s linear infinite;
+        }
+        
+        @keyframes fly {
+            0% {
+                transform: translateX(100%) translateY(-50%);
+            }
+            50% {
+                transform: translateX(-100%) translateY(50%);
+            }
+            100% {
+                transform: translateX(100%) translateY(-50%);
+            }
+        }
+
         
     </style>
 </head>
@@ -306,11 +365,23 @@
     <div class="sky"></div>
     <div class="wavy-line"></div>
 
+    <!-- <div class="birds"> -->
+    <div class="bird" style="top: 15%; left: 48%;">M</div>
+    <div class="bird" style="top: 17%; left: 50%;">M</div>
+    <div class="bird" style="top: 15%; left: 52%;">M</div>
+    <div class="bird" style="top: 13%; left: 46%;">M</div>
+    <div class="bird" style="top: 13%; left: 54%;">M</div>
+    <!-- </div> -->
+
     <div class="palm-container" id="buttonsButton">
-        <div class="palm-tree" style="bottom: 20%;"></div>
+        <div class="palm-tree" style="bottom: 20%;">
+            <div class="coconut"></div>
+        </div>
     </div>
     <div class="palm-container" id="atomsButton" style="left: 45%;">
-        <div class="palm-tree" style="bottom: 12%;"></div>
+        <div class="palm-tree" style="bottom: 12%;">
+            <div class="coconut"></div>
+        </div>
     </div>
     <style id="dynamicKeyframes"></style>
 
