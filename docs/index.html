@@ -1,17 +1,16 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Home Page</title>
     <style>
         body {
-          color: rgb(0, 145, 255);
-          font-size: 20px;
-          background-color: rgb(222, 218, 218);
-          text-align: center;
-          font-family: "Arial", sans-serif;
+            color: rgb(0, 145, 255);
+            font-size: 20px;
+            background-color: #1900ff;
+            text-align: center;
+            font-family: "Arial", sans-serif;
         }
-        .button {
+        .basic_button {
             display: inline-block;
             padding: 10px 20px;
             margin: 10px;
@@ -23,90 +22,421 @@
             color: white;
             cursor: pointer;
             border-radius: 5px;
+            z-index: 10;
         }
 
-        .button:hover {
+        .basic_button:hover {
             background-color: #0081cc;
         }
+
+        /* New style for sun rotation */
+        .sun-button {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            overflow: hidden; /* Prevent overflowing during animation */
+            float: left; /* Float the button to the left side */
+        }
+
+        .sun-canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotateClockwise 8s linear infinite; /* Clockwise rotation animation */
+        }
+
+        /* Apply rotation on hover */
+        .sun-button:hover .sun-canvas {
+            animation: rotateCounterClockwise 4s linear infinite; /* Counter-clockwise rotation animation */
+        }
+
+        /* Keyframes for the animations */
+        @keyframes rotateClockwise {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes rotateCounterClockwise {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+
+        .island {
+            position: absolute;
+            width: 800px;
+            height: 400px;
+            bottom: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ebc0a1;
+            border-radius: 50%;
+            z-index: -1; /* Lower z-index to place behind other elements */
+        }
+
+        .island-button {
+            display: inline-block;
+            position: absolute;
+            width: 200px; /* Adjust width as needed */
+            height: 100px; /* Adjust height as needed */
+            bottom: 10%; /* Adjust vertical position as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: transparent;
+            border: none;
+            z-index: -1; /* Adjust the z-index if needed */
+        }
+
+        .sky {
+            position: absolute;
+            width: 200%;
+            height: 50%;
+            bottom: -100;
+            background-color: #00BFFF;
+            z-index: -2;
+        }
+
+        .wavy-line {
+            position: absolute;
+            width: 100%;
+            height: 2000px;
+            bottom: 50%; /* Adjust the vertical position */
+            background-color: #00BFFF; /* Line color */
+            z-index: -3;
+            animation: wave 4s linear infinite; /* Animation for the wavy line */
+        }
+    
+        /* Animation for the wavy line */
+        @keyframes wave {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(45px); /* Adjust the wave height */
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* New style for the palm trees container */
+        .palm-container {
+            position: absolute;
+            width: 2%;
+            height: 40%;
+            bottom: 20%;
+            left: 25%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 20%;
+            /*animation: sway 4s infinite alternate; /* Animation for swaying */
+            z-index: 0; /* Higher z-index to place on top of the island */
+        }
+
+        /* New style for the palm tree */
+        .palm-tree {
+            width: 30px;
+            height: 200px;
+            bottom: 30%;
+            left: 35%;
+            background-color: #8B4513; /* Brown color for the trunk */
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 10px; /* Adjust the radius to control the curvature */
+            /*transform: skewY(-50deg); /* Apply skew transformation on the y-axis */
+            /*transform-origin: bottom center; /* Set the transformation origin */
+        }
+
+
+
+        .palm-leaves {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 200px solid #008000; /* Green color for leaves */
+            position: absolute;
+            animation: swayLeaves 4s infinite alternate; /* Animation for swaying leaves */
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+
+
+        /* Animation for swaying palm trees */
+        @keyframes sway {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(5deg);
+            }
+        }
+
+        /* Animation for swaying palm leaves */
+        @keyframes swayLeaves {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(10deg);
+            }
+        }
+
+        .cloud {
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            top: 10%;
+            left: 100%;
+            background-color: transparent;
+            z-index: 0;
+        }
+
+        /* Style for the cloud inner part */
+        .cloud-inner {
+            width: 30%;
+            height: 50%;
+            background-color: #ffffff;
+            border-radius: 100px;
+            box-shadow:75px 1px 0px -0.5px #ffffff, 2px 1px 0px -0.5px #ffffff, 9px 1px 0px -0.5px #ffffff,
+            -22px -5px 0px -0.5px #ffffff, 5px 1px 0px -0.5px #ffffff, 8px 5px 0px -0.5px #ffffff,
+            22px 22px 0px -0.5px #ffffff, 4px 9px 0px -0.5px #ffffff, 7px 9px 0px -0.5px #ffffff,
+            0px 13px 0px -0.5px #ffffff, 3px 17px 0px -0.5px #ffffff, 6px 13px 0px -0.5px #ffffff,
+            -5px 17px 0px -0.5px #ffffff, 2px 17px 0px -0.5px #ffffff, 11px 17px 0px -0.5px #ffffff;
+}
+
+        .cloud-button {
+            display: inline-block;
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            top: 10%;
+            left: 60%;
+            background-color: transparent;
+            border: none;
+            z-index: 1; /* Adjust the z-index if needed */
+        }
+
+        .cloud-button:hover .cloud .cloud-inner {
+            background-color: #a9a8a8;
+            box-shadow:75px 1px 0px -0.5px #a9a8a8, 2px 1px 0px -0.5px #a9a8a8, 9px 1px 0px -0.5px #a9a8a8,
+            -22px -5px 0px -0.5px #a9a8a8, 5px 1px 0px -0.5px #a9a8a8, 8px 5px 0px -0.5px #a9a8a8,
+            22px 22px 0px -0.5px #a9a8a8, 4px 9px 0px -0.5px #a9a8a8, 7px 9px 0px -0.5px #a9a8a8,
+            0px 13px 0px -0.5px #a9a8a8, 3px 17px 0px -0.5px #a9a8a8, 6px 13px 0px -0.5px #a9a8a8,
+            -5px 17px 0px -0.5px #a9a8a8, 2px 17px 0px -0.5px #a9a8a8, 11px 17px 0px -0.5px #a9a8a8;
+        }
+    
+        /* Make the lightning bolt appear on hover */
+        .cloud-button:hover .lightning-bolt {
+            animation: flash 1s linear infinite;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            top: 60%;
+            left: 10%;
+            /*transform: translate(-50%, -50%);*/
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 300px solid #b6e02e;
+            border-radius: 1px;
+            transform: rotate(10deg);
+            opacity: 0; /* Initially hide the lightning bolt */
+            z-index: 20;
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 0; 
+            }
+            15% {
+                opacity: 1;
+            }
+            20% {
+                opacity: 1;
+            }
+            25% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .raindrop {
+            width: 5px;
+            height: 25px;
+            background-color: #4477e7;
+            position: absolute;
+            bottom: 10%; /* Start raindrop above the cloud */
+            animation: fall 5s linear infinite; /* Animation for falling raindrops */
+            z-index: 5;
+        }
+
+        /* Animation for falling raindrops */
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(600px); /* Distance raindrop falls */
+            }
+        }
+
+        
     </style>
 </head>
 <body>
-    <h1>WELCOME</h1>
-    <a href="buttons.html" class="button">BUTTONS</a>
-    <a href="gallery.html" class="button">GALLERY</a>
-    <a href="pong.html" class="button">PONG</a>
-    <a href="atoms.html" class="button">ATOMS</a>
-    <a href="calculator.html" class="button">CALCULATOR</a><br>
+    <!-- <a href="buttons.html" class="basic_button">BUTTONS</a> -->
+    <!-- <a href="gallery.html" class="basic_button">GALLERY</a> -->
+    <!-- <a href="pong.html" class="cloud-button"> </a> -->
+    <!-- <a href="atoms.html" class="basic_button">ATOMS</a> -->
+    <!-- <a href="calculator.html" class="basic_button">CALCULATOR</a><br> -->
 
-    <canvas id="myCanvas" width="2000" height="2000"></canvas>
+    <!-- Sun-shaped button -->
+    <div class="sky"></div>
+    <div class="wavy-line"></div>
+
+    <div class="palm-container" id="buttonsButton">
+        <div class="palm-tree" style="bottom: 20%;"></div>
+    </div>
+    <div class="palm-container" id="atomsButton" style="left: 45%;">
+        <div class="palm-tree" style="bottom: 12%;"></div>
+    </div>
+    <style id="dynamicKeyframes"></style>
+
+    <!-- Cloud-shaped button -->
+    <button id="cloudButton" class="cloud-button">
+        <div class="cloud">
+            <div class="cloud-inner"></div>
+            <div class="lightning-bolt"></div>
+            <div class="lightning-bolt" style="top: 100%; left: 28%; transform: rotate(-15deg);"></div>
+            <!-- Create raindrops dynamically -->
+            <script>
+                const cloud = document.querySelector('.cloud');
+                const numRaindrops = 20; // Number of raindrops
+    
+                for (let i = 0; i < numRaindrops; i++) {
+                    const raindrop = document.createElement('div');
+                    raindrop.className = 'raindrop';
+                    raindrop.style.left = `${(i / (numRaindrops - 1)) * 50}%`;
+                    raindrop.style.animationDuration = `${2 + Math.random() * 2}s`;
+                    cloud.appendChild(raindrop);
+                }
+            </script>
+        </div>
+    </button>
+
+    <button id="islandButton" class="island-button">
+        <div class="island">
+            <!-- Content for the island button, if needed -->
+        </div>
+    </button>
+    
+
+    <!-- Sun-shaped button -->
+    <button id="sunButton" class="sun-button">
+        <canvas id="sunCanvas" class="sun-canvas" width="400" height="400"></canvas>
+    </button>
 
     <script>
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
-        var duration = 100;
-        var lines = [
-            { start: { x: 100, y: 250 }, end: { x: 300, y: 250 }, color: "black" },
-            { start: { x: 300, y: 250 }, end: { x: 300, y: 450 }, color: "white" },
-            { start: { x: 300, y: 450 }, end: { x: 100, y: 250 }, color: "red" },
-            { start: { x: 100, y: 250 }, end: { x: 100, y: 450 }, color: "orange" },
-            { start: { x: 100, y: 450 }, end: { x: 300, y: 250 }, color: "yellow" },
-            { start: { x: 300, y: 250 }, end: { x: 500, y: 50 }, color: "green" },
-            { start: { x: 500, y: 50 }, end: { x: 500, y: 250 }, color: "blue" },
-            { start: { x: 500, y: 250 }, end: { x: 300, y: 50 }, color: "purple" },
-            { start: { x: 300, y: 50 }, end: { x: 300, y: 250 }, color: "black" },
-            { start: { x: 300, y: 250 }, end: { x: 500, y: 250 }, color: "white" },
-            { start: { x: 500, y: 250 }, end: { x: 700, y: 250 }, color: "red" },
-            { start: { x: 700, y: 250 }, end: { x: 700, y: 450 }, color: "orange" },
-            { start: { x: 700, y: 450 }, end: { x: 500, y: 250 }, color: "yellow" },
-            { start: { x: 500, y: 250 }, end: { x: 500, y: 450 }, color: "green" },
-            { start: { x: 500, y: 450 }, end: { x: 700, y: 250 }, color: "blue" },
-            { start: { x: 700, y: 250 }, end: { x: 900, y: 50 }, color: "purple" },
-            { start: { x: 900, y: 50 }, end: { x: 900, y: 250 }, color: "black" },
-            { start: { x: 900, y: 250 }, end: { x: 700, y: 50 }, color: "white" },
-            { start: { x: 700, y: 50 }, end: { x: 700, y: 250 }, color: "red" },
-            { start: { x: 700, y: 250 }, end: { x: 900, y: 250 }, color: "orange" },
-            { start: { x: 900, y: 250 }, end: { x: 1100, y: 250 }, color: "yellow" },
-            { start: { x: 1100, y: 250 }, end: { x: 1100, y: 450 }, color: "green" },
-            { start: { x: 1100, y: 450 }, end: { x: 900, y: 250 }, color: "blue" },
-            { start: { x: 900, y: 250 }, end: { x: 900, y: 450 }, color: "purple" },
-            { start: { x: 900, y: 450 }, end: { x: 1100, y: 250 }, color: "black" },
-        ];
-        var currentIndex = 0;
+        const sunCanvas = document.getElementById("sunCanvas");
+        const sunCtx = sunCanvas.getContext("2d");
 
-        function drawLine(start, end, duration, color) {
-            var startTime = null;
+        // Draw the sun
+        sunCtx.beginPath();
+        sunCtx.arc(200, 200, 80, 0, Math.PI * 2, false); // Outer circle
+        sunCtx.fillStyle = "yellow";
+        sunCtx.fill();
 
-            function animate(timestamp) {
-                if (!startTime) startTime = timestamp;
-                var progress = (timestamp - startTime) / duration;
-                if (progress > 1) progress = 1;
+        // Draw sun rays
+        for (let i = 0; i < 12; i++) {
+            const angle = (i * 30) * (Math.PI / 180);
+            const startX = 200 + (80 * Math.cos(angle));
+            const startY = 200 + (80 * Math.sin(angle));
+            const endX = 200 + (240 * Math.cos(angle));
+            const endY = 200 + (240 * Math.sin(angle));
+            
+            sunCtx.beginPath();
+            sunCtx.moveTo(startX, startY);
+            sunCtx.lineTo(endX, endY);
+            sunCtx.strokeStyle = "yellow";
+            sunCtx.lineWidth = 5;
+            sunCtx.stroke();
+         }
 
-                ctx.beginPath();
-                ctx.moveTo(start.x, start.y);
+         const sunButton = document.getElementById("sunButton");
+         sunButton.addEventListener("click", () => {
+             // Change the window location to gallery.html
+             window.location.href = "gallery.html";
+         });
 
-                var currentX = start.x + (end.x - start.x) * progress;
-                var currentY = start.y + (end.y - start.y) * progress;
+         const islandButton = document.getElementById("islandButton");
+        islandButton.addEventListener("click", () => {
+            // Change the window location to the desired page (e.g., island.html)
+            window.location.href = "calculator.html";
+        });
 
-                ctx.lineTo(currentX, currentY);
-                ctx.lineWidth = 10;
-                ctx.strokeStyle = color;
-                ctx.stroke();
+         const galleryButton = document.getElementById("buttonsButton");
+         galleryButton.addEventListener("click", () => {
+             window.location.href = "buttons.html";
+         });
+     
+         const pongButton = document.getElementById("atomsButton");
+         pongButton.addEventListener("click", () => {
+             window.location.href = "atoms.html";
+         });
 
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    currentIndex++;
-                    if (currentIndex < lines.length) {
-                        var nextLine = lines[currentIndex];
-                        drawLine(nextLine.start, nextLine.end, duration, nextLine.color);
+         const cloudButton = document.getElementById("cloudButton");
+         cloudButton.addEventListener("click", () => {
+             // Change the window location to pong.html
+             window.location.href = "pong.html";
+         });
+
+        const palmTrees = document.querySelectorAll(".palm-tree");
+
+        // Create the keyframes dynamically
+        const dynamicKeyframes = document.getElementById("dynamicKeyframes");
+        const numLeaves = 10; // Number of leaves
+    
+        for (let i = 0; i < numLeaves; i++) {
+            const startAngle = Math.random() * 360; // Random rotation angle between 0 and 360 degrees
+            const rotationAngle = Math.random() * 360; // Random rotation angle between 0 and 360 degrees
+    
+            // Define the keyframes for each leaf
+            const keyframes = `
+                @keyframes swayLeaves${i} {
+                    0% {
+                        transform: rotate(${startAngle});
+                    }
+                    100% {
+                        transform: rotate(${rotationAngle}deg);
                     }
                 }
-            }
-
-            requestAnimationFrame(animate);
+            `;
+    
+            // Append the keyframes to the dynamicKeyframes element
+            dynamicKeyframes.innerHTML += keyframes;
+    
+            palmTrees.forEach((palmTree) => {
+                const leaf = document.createElement("div");
+                leaf.className = "palm-leaves";
+                leaf.style.left = `${(i / (numLeaves - 1)) * 100}%`;
+                leaf.style.animation = `swayLeaves${i} ${10+(i/2)}s infinite alternate`; // Use the dynamically created keyframes
+                leaf.style.transform = `translateX(-50%)`;
+                leaf.style.borderRadius = "50%";
+                leaf.style.bottom = "50%";
+                palmTree.appendChild(leaf);
+            });
         }
-
-        drawLine(lines[currentIndex].start, lines[currentIndex].end, duration, lines[currentIndex].color);
     </script>
-</body>
 </html>
