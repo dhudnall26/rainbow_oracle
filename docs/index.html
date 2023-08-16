@@ -558,6 +558,19 @@
             z-index: 1; /* Adjust the z-index if needed */
         }
 
+        .bird-button {
+            display: inline-block;
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            top: 10%;
+            left: 50%;
+            background-color: transparent;
+            border: none;
+            z-index: 1; /* Adjust the z-index if needed */
+            cursor: pointer;
+        }
+
         .cloud-button:hover .cloud .cloud-inner {
             background-color: #a9a8a8;
             box-shadow:75px 1px 0px -0.5px #a9a8a8, 2px 1px 0px -0.5px #a9a8a8, 9px 1px 0px -0.5px #a9a8a8,
@@ -655,19 +668,21 @@
         </div>
     </div>
 
-    <div class="bird" style="left: 40%">
-        <div class="head">
-            <div class="leftWing"></div>
-            <div class="rightWing"></div>
-            <div class="bird-eye left">
-                <div class="bird-eye left pupil"></div>
+    <button id="birdButton" class="bird-button">
+        <div class="bird" style="left: 40%">
+            <div class="head">
+                <div class="leftWing"></div>
+                <div class="rightWing"></div>
+                <div class="bird-eye left">
+                    <div class="bird-eye left pupil"></div>
+                </div>
+                <div class="bird-eye right">
+                    <div class="bird-eye right pupil"></div>
+                </div>
+                <div class="beak"></div>
             </div>
-            <div class="bird-eye right">
-                <div class="bird-eye right pupil"></div>
-            </div>
-            <div class="beak"></div>
         </div>
-    </div>
+    </button>
 
     <div class="palm-container" id="buttonsButton">
         <div class="palm-tree" style="bottom: 20%;">
@@ -756,6 +771,12 @@
          sunButton.addEventListener("click", () => {
              // Change the window location to gallery.html
              window.location.href = "gallery.html";
+         });
+
+         const birdButton = document.getElementById("birdButton");
+         birdButton.addEventListener("click", () => {
+             // Change the window location to bounce.html
+             window.location.href = "bounce.html";
          });
 
          const islandButton = document.getElementById("islandButton");
