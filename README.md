@@ -1,3 +1,3 @@
 # rainbow_oracle
 
-dhudnall26/rainbow_oracle
+https://dhudnall26.github.io/rainbow_oracle/
